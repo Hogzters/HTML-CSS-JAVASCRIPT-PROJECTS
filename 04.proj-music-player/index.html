@@ -1,0 +1,102 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player / Skrillex - Badders</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/2f42c71e4b.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="music-player">
+            <nav>
+
+                <div class="circle">
+                    <i class="fa-solid fa-angle-left" style="color: #6e0b0b;"></i>
+                </div>
+
+                <div class="circle">
+                    <i class="fa-solid fa-bars" style="color: #6e0b0b;"></i>
+                </div>
+
+            </nav>
+            <img src='assets/image1.webp' class="song-img">
+            <h1>Badders</h1>
+            <p>Skrillex, PEEKABOO, Flowdan, & G-Rex</p>
+
+            <audio id="song">
+                <source src="assets/music.mp4" type="audio/mpeg">
+            </audio>    
+            <input type="range" value="0" id="progress-slider">
+
+            <input type="range" value="100" id="volume-slider">
+
+            
+
+            <div class="controls">
+                <div>
+                    <i class="fa-solid fa-backward" style="color: #6e1919;"></i>
+                </div>
+
+                <div onclick="playPause()">
+                    <i class="fa-solid fa-play" id="ctrlIcon" style="color: #000000;"></i>
+                </div>
+
+                <div>
+                    <i class="fa-solid fa-forward" style="color: #6e1919;"></i>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+<script>
+
+    let progress = document.getElementById('progress-slider');
+    let song = document.getElementById('song');
+    let ctrlIcon = document.getElementById('ctrlIcon');
+    let volume = document.getElementById('volume-slider');
+
+    song.onloadedmetadata = function(){
+        progress.max = song.duration;
+        progress.value = song.currentTime;
+    }
+
+    function playPause(){
+        if(ctrlIcon.classList.contains('fa-pause')){
+            song.pause();
+            ctrlIcon.classList.remove('fa-pause');
+            ctrlIcon.classList.add('fa-play');
+        } else {
+            song.play();
+            ctrlIcon.classList.add('fa-pause');
+            ctrlIcon.classList.remove('fa-play');
+        }
+    }
+
+    // slider moving update function
+
+    if(song.play()){
+        setInterval(()=>{
+            progress.value = song.currentTime;
+        },500)
+    }
+
+    progress.onchange = function (){
+        song.play();
+        song.currentTime = progress.value;
+        ctrlIcon.classList.add('fa-pause');
+        ctrlIcon.classList.remove('fa-play');
+    }
+
+
+    song.volume = 1;
+    volume.addEventListener("change", function(e) {
+    audio.volume = e.currentTarget.value / 100;
+})
+
+</script>
+
+</html>
