@@ -1,0 +1,51 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Notifications Project</title>
+    <script src="https://kit.fontawesome.com/2f42c71e4b.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <h1>Choose the correct button!</h1>
+    <div class="buttons">
+        <button onclick="showToast(successMsg)"></button>
+        <button onclick="showToast(errorMsg)"></button>
+        <button onclick="showToast(InvalidMsg)"></button>
+    </div>
+
+    <div id="toastBox">
+
+    </div>
+
+    <script>
+
+        let toastBox = document.getElementById('toastBox');
+        let successMsg = '<i class="fa-solid fa-circle-xmark"></i> Correct!';
+        let errorMsg = '<i class="fa-solid fa-circle-xmark"></i> Not even close!';
+        let InvalidMsg = '<i class="fa-solid fa-circle-exclamation"></i> You are close!';
+
+        function showToast(msg){
+            let toast = document.createElement('div');
+            toast.classList.add('toast');
+            toast.innerHTML = msg;
+            toastBox.appendChild(toast);   
+            
+            if(msg.includes('Not even')){
+            toast.classList.add('error');
+            }
+            if(msg.includes('You are close!')){
+            toast.classList.add('Invalid');
+            }
+            // will remove after 6 seconds
+            setTimeout(()=>{
+                toast.remove();
+            },5000);
+        }
+
+        
+
+    </script>
+
+</body>
+</html>
